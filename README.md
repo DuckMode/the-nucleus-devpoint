@@ -49,7 +49,7 @@ the-nucleus-devpoint/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/SudoDuck-Dev/the-nucleus-devpoint.git
+git clone https://github.com/DuckMode/the-nucleus-devpoint.git
 cd the-nucleus-devpoint
 ```
 
@@ -84,4 +84,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Repository
 
 The source code for this project is available on GitHub:
-[https://github.com/SudoDuck-Dev/the-nucleus-devpoint](https://github.com/SudoDuck-Dev/the-nucleus-devpoint)
+[https://github.com/DuckMode/the-nucleus-devpoint](https://github.com/DuckMode/the-nucleus-devpoint)
