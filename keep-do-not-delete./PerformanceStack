@@ -1,0 +1,24 @@
+Performance Optimization Layers (Full-Stack DevOps Cheat Sheet)
+
+Layer	Technique	Description	Key Tools/APIs	Impact Area
+Frontend	Code Splitting	Load JavaScript in smaller chunks per route/component.	React.lazy, Suspense, dynamic import() (Vite)	Initial Load Time, TTI
+Server State Management	Sync, cache, and fetch backend data smartly.	TanStack Query (React Query)	Responsiveness, Network Usage
+Memoization	Avoid unnecessary re-renders of React components.	React.memo, useMemo, useCallback	CPU Usage, Responsiveness
+Virtualization	Render only visible items in lists/grids.	react-window, react-virtualized	Memory Usage, Responsiveness
+Bundle Analysis	Audit your bundle for bloated dependencies.	rollup-plugin-visualizer (via Vite)	Initial Load Time
+Build	CSS Purging	Strip unused styles for leaner CSS.	Tailwind JIT	Load Time, Network Usage
+Asset Optimization	Compress images, fonts, and other static assets.	Vite asset pipeline, Image optimization tools	Load Time
+Backend	Async Operations	Use non-blocking I/O for faster response.	async/await, Promises	Throughput, Responsiveness
+Caching	Cache hot data to minimize DB calls.	In-memory, Redis, Memcached	Latency, Database Load
+Response Compression	Shrink payloads to reduce bandwidth.	compression middleware (Gzip/Brotli)	Load Time, Network Usage
+Concurrency Management	Scale Node processes across CPU cores.	pm2, Node.js cluster	Throughput (CPU-bound tasks)
+Efficient Logging	Use non-blocking logging tools.	Pino, Winston	Throughput, Stability
+Database	Query Optimization	Write selective queries, inspect execution plans.	EXPLAIN ANALYZE, Drizzle Query Builder	Latency, DB CPU/IO Load
+Indexing	Speed up searches on large tables.	CREATE INDEX	Query Latency
+Connection Pooling	Reuse DB connections to reduce setup cost. Essential for serverless (e.g., Neon).	PgBouncer, Neon Pooler, Drizzle pooling	Latency, Cold Starts, DB Load
+Batch Operations	Combine multiple operations in one trip.	Drizzle batch API	Latency, Network Round Trips
+Electron	Minimize Main Process Work	Offload tasks to renderer or utility processes.	Electron process model	Startup Time, Responsiveness
+Optimize Preload Scripts	Keep preload scripts light and async.	Preload script best practices	Startup Time
+Monitoring	Frontend Profiling	Analyze rendering time and bottlenecks.	React DevTools Profiler, Chrome DevTools	UI Responsiveness
+Backend APM/Profiling	Trace backend calls and system resource usage.	APM tools, node --prof, Postman monitoring	Server Bottlenecks
+Database Monitoring	Monitor slow queries, connections, and performance stats.	pg_stat_statements, Neon Console	Query Bottlenecks, Connection Stats

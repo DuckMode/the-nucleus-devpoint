@@ -1,0 +1,235 @@
+{
+  "product_requirements_document": {
+    "title": "Interactive Dashboard Console (Nucleus)",
+    "version": "1.0",
+    "date": "2023-10-27",
+    "introduction": "This document outlines the requirements for an interactive dashboard console component designed to provide users with real-time status information, project context, quick access to tools, and sidebar management within a web application interface. It features a collapsible design to save screen space and an optional, draggable AI interaction prompt.",
+    "goals": [
+      "Provide a persistent, easily accessible overview of key application/workflow metrics and status.",
+      "Offer quick-launch buttons for frequently used tools and resources.",
+      "Display relevant project context (e.g., Git information).",
+      "Allow users to manage the visibility of main application sidebars.",
+      "Offer an integrated, unobtrusive interface for potential AI interaction.",
+      "Optimize screen real estate through a collapsible interface.",
+      "Deliver a responsive and intuitive user experience across various screen sizes."
+    ],
+    "user_personas": [
+      {
+        "name": "Developer/Power User",
+        "description": "Users interacting with a web application or workflow environment who need quick status checks, easy navigation to tools (like terminals or documentation), context about their current project (like Git status), and control over their workspace layout (sidebars)."
+      }
+    ],
+    "functional_requirements": [
+      {
+        "id": "FR-CONSOLE-01",
+        "title": "Console Container & Toggle",
+        "description": "The main console container anchors all sub-components. It features a primary toggle button (FAB) located in the bottom-right corner.",
+        "details": [
+          "The console can be in one of two states: 'collapsed' (minimal height) or 'expanded' (taller height).",
+          "A floating action button (FAB) controls the expand/collapse state.",
+          "FAB is positioned in the bottom-right corner.",
+          "FAB is larger than standard buttons.",
+          "When collapsed, the FAB should visually 'stick out' halfway below the console's bottom edge.",
+          "FAB icon changes to indicate action (e.g., chevron-up for collapse, chevron-down for expand).",
+          "Expanding/collapsing uses smooth animations."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-02",
+        "title": "Collapsed View (.console-top-bar)",
+        "description": "When collapsed, the console displays a single horizontal bar with essential information and quick actions.",
+        "details": [
+          "Displays 'Metrics' status (e.g., 'OK').",
+          "Displays 'Project' name (e.g., 'MyWorkflowApp').",
+          "Displays 'Complete' status/progress.",
+          "Includes icon buttons for 'Terminal', 'Navigate', 'Learn', 'Resources'.",
+          "Includes a 'Help' button.",
+          "Layout is horizontal.",
+          "On smaller screens (e.g., < 1100px), text labels on 'Terminal', 'Navigate', 'Learn', 'Resources' buttons hide, showing only icons.",
+          "On very small screens (e.g., < 600px), less critical buttons may be hidden entirely."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-03",
+        "title": "Expanded View Layout",
+        "description": "When expanded, the console reveals a more detailed, multi-section layout.",
+        "details": [
+          "The .console-top-bar content is hidden within the expanded view area.",
+          "Layout consists of a left column and a right area.",
+          "Both left and right columns support independent vertical scrolling if content overflows."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-04",
+        "title": "Expanded View - Left Column",
+        "description": "The left column contains status information and tool buttons.",
+        "details": [
+          "Top section: 'Stats'.",
+          " 'Stats' section title is clickable to collapse/expand the stat items below it. A chevron icon indicates state.",
+          " 'Stats' section displays items like 'Metrics', 'Project Status', 'Complete' (with progress), 'Users', 'CPU', etc., with appropriate visual indicators (colors, icons, progress bars).",
+          "Bottom section: 'Tools'.",
+          " 'Tools' section displays buttons vertically: 'Terminal', 'Navigate', 'Learn', 'Resources'.",
+          " 'Tools' buttons are styled similarly to their appearance in the collapsed bar (smaller size).",
+          "Section titles ('Stats', 'Tools') are sticky to the top of the column during scrolling."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-05",
+        "title": "Expanded View - Right Area",
+        "description": "The right area contains project-specific information.",
+        "details": [
+          "Top section: 'Project Info'.",
+          " Displays project details vertically: Name, Branch, Last Commit.",
+          " Includes a 'Git' button.",
+          "Bottom section: 'Git Status'.",
+          " Displays Git metrics: Commits, Pushes, Branches, Git Ratio, with visual indicators (e.g., progress bars, values).",
+          "Section titles ('Project Info', 'Git Status') are sticky to the top of the area during scrolling."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-06",
+        "title": "Expanded View - Bottom Controls",
+        "description": "Control buttons located in the bottom-right corner of the expanded console.",
+        "details": [
+          "Positioned to the left of the main console toggle FAB.",
+          "Includes an 'Add Block' button (+ icon).",
+          "Includes a 'Toggle Sidebars' button (columns icon)."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-07",
+        "title": "Sidebar Toggle Modal",
+        "description": "A modal window for controlling main application sidebar visibility.",
+        "details": [
+          "Modal is opened by clicking the 'Toggle Sidebars' button.",
+          "Modal displays options: 'L' (Toggle Left Sidebar), 'R' (Toggle Right Sidebar), 'B' (Toggle Both Sidebars).",
+          "Clicking an option triggers the corresponding sidebar(s) hide/show action and closes the modal.",
+          "Clicking the modal overlay (outside the content box) closes the modal without action.",
+          "Modal includes a close button (X).",
+          "Sidebar hide/show actions should use smooth transitions."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-08",
+        "title": "'Ask Nuc' Component",
+        "description": "An optional input component for interacting with a potential AI assistant.",
+        "details": [
+          "Component consists of a text input field (placeholder: 'Ask Nuc...') and a send button.",
+          "When the console is collapsed, this component is completely hidden.",
+          "When the console is expanded, this component animates (slides/folds up) into view.",
+          "In the expanded state, it is positioned horizontally centered and protrudes halfway above the top edge of the expanded console container.",
+          "The component is horizontally draggable by clicking and dragging its background area (not the input or button) *only* when the console is expanded.",
+          "The dragged horizontal position persists until the console is collapsed/re-expanded, at which point it resets to center.",
+          "The component animates (slides/folds down) and hides when the console is collapsed."
+        ]
+      },
+      {
+        "id": "FR-CONSOLE-09",
+        "title": "Notifications",
+        "description": "The system should provide visual feedback for certain actions.",
+        "details": [
+          "Notifications appear (e.g., small temporary popups) when actions like button clicks or sidebar toggles occur.",
+          "Notifications are positioned in the bottom-right area, near the FABs."
+        ]
+      }
+    ],
+    "non_functional_requirements": [
+      {
+        "id": "NFR-01",
+        "title": "Usability",
+        "description": "The console must be intuitive and easy to use.",
+        "details": [
+          "Clear visual hierarchy and layout.",
+          "Obvious click targets and state indicators (icons, highlights).",
+          "Smooth and non-jarring animations.",
+          "Draggable component interaction should feel natural."
+        ]
+      },
+      {
+        "id": "NFR-02",
+        "title": "Performance",
+        "description": "The console must be responsive and performant.",
+        "details": [
+          "Fast load time.",
+          "Smooth animations (target 60fps), preferably using CSS transitions/animations.",
+          "Low impact on overall application performance."
+        ]
+      },
+      {
+        "id": "NFR-03",
+        "title": "Responsiveness",
+        "description": "The console layout must adapt to different screen sizes.",
+        "details": [
+          "Layout adjustments as defined in FR-CONSOLE-02 (icon-only buttons, hiding buttons).",
+          "Expanded view columns may stack on very narrow screens.",
+          "FABs and controls remain accessible on all supported screen sizes."
+        ]
+      },
+      {
+        "id": "NFR-04",
+        "title": "Maintainability",
+        "description": "The code should be clean, well-structured, and easy to maintain.",
+        "details": [
+          "Separation of concerns (HTML, CSS, JavaScript).",
+          "Use of CSS variables for theming (colors, sizes).",
+          "Clear naming conventions."
+        ]
+      },
+      {
+        "id": "NFR-05",
+        "title": "Accessibility (A11y)",
+        "description": "The console should adhere to basic accessibility principles.",
+        "details": [
+          "Sufficient color contrast based on the existing theme.",
+          "Keyboard navigability for all interactive elements.",
+          "Use of semantic HTML and ARIA attributes where appropriate (e.g., button roles, expanded states)."
+        ]
+      }
+    ],
+    "design_ux_requirements": [
+      {
+        "id": "UX-01",
+        "title": "Visual Style",
+        "description": "Adhere to the established visual design and color scheme of the parent application."
+      },
+      {
+        "id": "UX-02",
+        "title": "Iconography",
+        "description": "Utilize Font Awesome icons as specified throughout the functional requirements."
+      },
+      {
+        "id": "UX-03",
+        "title": "Animations",
+        "description": "Employ smooth slide/fade/fold animations for expand/collapse actions and component reveals (Ask Nuc)."
+      },
+      {
+        "id": "UX-04",
+        "title": "Layout Consistency",
+        "description": "Maintain consistent styling for similar elements (e.g., Tools buttons in collapsed vs. expanded views)."
+      }
+    ],
+    "future_considerations_out_of_scope": [
+      "Actual backend implementation for Stats, Project Info, Git Status data.",
+      "Specific functionality triggered by 'Add Block', 'Terminal', 'Navigate', 'Learn', 'Resources', 'Git', and 'Help' buttons.",
+      "AI backend integration and processing for the 'Ask Nuc' component.",
+      "Persistence of the 'Ask Nuc' component's dragged position across page loads/sessions.",
+      "User customization of console content or layout.",
+      "Advanced accessibility compliance (e.g., specific WCAG levels) beyond basic principles.",
+      "Detailed error handling scenarios.",
+      "Internationalization/Localization."
+    ],
+    "success_metrics": [
+      "Frequency of console interaction (expand/collapse, button clicks).",
+      "Task completion rate/time for actions initiated via the console.",
+      "User satisfaction ratings (via surveys or feedback).",
+      "Adoption rate among the target user base.",
+      "Performance metrics (load time, animation smoothness) meeting NFR targets."
+    ],
+    "open_issues": [
+      "Define the exact data sources and APIs for dynamic content (Stats, Project Info, Git Status).",
+      "Specify the precise actions/integrations for all interactive buttons.",
+      "Finalize specific breakpoints and responsive behaviors for very small/large screens.",
+      "Confirm detailed accessibility requirements/target WCAG level, if any."
+    ]
+  }
+}

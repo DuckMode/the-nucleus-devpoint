@@ -1,0 +1,57 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend API with Express, TypeScript, Drizzle ORM, and Neon PostgreSQL",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:studio": "drizzle-kit studio",
+    "db:test-connection": "tsx src/db/test-connection.ts",
+    "db:introspect": "drizzle-kit introspect",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:seed": "tsx src/db/seed.ts"
+  },
+  "keywords": [
+    "express",
+    "typescript",
+    "drizzle",
+    "postgresql",
+    "neon",
+    "passport"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@types/express": "^5.0.1",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.43.1",
+    "express": "^5.0.0-beta.1",
+    "jsonwebtoken": "^9.0.2",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "pg": "^8.15.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.3",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/pg": "^8.11.14",
+    "drizzle-kit": "^0.31.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4"
+  }
+}

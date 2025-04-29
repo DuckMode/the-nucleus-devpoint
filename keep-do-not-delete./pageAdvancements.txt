@@ -1,0 +1,111 @@
+[
+  {
+    "section_id": "move_console_toggle",
+    "user_request": "Move round console toggle button to bottom center, make it larger, and have it stick out halfway from the bottom console bar when collapsed.",
+    "implementation_summary": "Adjusted CSS for the .minimize-btn (positioning, size, border, shadow). Added a new CSS rule for the expanded state to adjust the button's position. Ensured the button's HTML element follows the console container for the CSS selector to work. Updated JavaScript's toggleConsole function for robust height calculation.",
+    "key_changes": [
+      "CSS: Modified .minimize-btn properties: bottom (using calc()), left (50%), transform (translateX(-50%)), width/height (increased via --fab-size variable), font-size (increased), border (added), box-shadow (strengthened).",
+      "CSS: Added new rule .console-container.expanded + .minimize-btn to adjust 'bottom' when expanded.",
+      "HTML: Ensured .minimize-btn div is placed after .console-container div.",
+      "JavaScript: Updated toggleConsole to use computed heights from CSS variables."
+    ]
+  },
+  {
+    "section_id": "add_taskbar_buttons",
+    "user_request": "Add Terminal, Navigate, Learn, Resources buttons in the bottom taskbar.",
+    "implementation_summary": "Added four new button elements to the .console-top-bar HTML between 'Complete' and 'Help'. Updated CSS to manage spacing and added responsive rules to hide text labels or entire buttons on smaller screens. Added placeholder JavaScript click event listeners for the new buttons.",
+    "key_changes": [
+      "HTML: Added four <button> elements with Font Awesome icons and text labels within .console-top-bar.",
+      "CSS: Reduced 'gap' and 'padding' in .console-top-bar. Added 'flex-shrink: 0' to prevent items from shrinking. Added 'overflow-x: auto' as fallback. Added @media queries to hide text (icon-only class) and eventually hide less critical buttons on smaller screens.",
+      "JavaScript: Added placeholder click event listeners to new buttons in window.onload."
+    ]
+  },
+  {
+    "section_id": "redesign_expanded_console",
+    "user_request": "Rearrange expanded console: vertical left column for Metrics/Stats/Project/Complete; top-right row for Project/Git; mid-right 4-button grid for Tools (Term, Nav, Learn, Res); bottom-left corner for Add Block/Collapse/Restore Sidebars buttons. Remove 'Ask Nuc' prompt.",
+    "implementation_summary": "Kept the collapsed view (.console-top-bar) as is. Rebuilt the .console-expanded-content structure using Flexbox for a new two-column layout. Added sections for Stats, Project Info (with Git button), and a Tools grid. Removed the AI input elements. Added new control buttons (+, Toggle Sidebars) at the bottom-left. Updated CSS for the new layout, controlled visibility of top-bar vs expanded content based on .expanded class, and changed FAB icon. Updated JavaScript to handle the new sidebar toggle logic and remove AI functions.",
+    "key_changes": [
+      "HTML: Reorganized .console-expanded-content with .expanded-left-col, .expanded-right-area, .expanded-section, .tools-grid. Removed AI input group. Added .console-bottom-controls with .add-block-btn and .toggle-sidebar-btn.",
+      "CSS: Added styles for new layout elements using Flexbox and Grid. Controlled visibility of .console-top-bar and .console-expanded-content based on .expanded class. Styled new sections, buttons, controls. Updated responsive styles. Changed FAB icon to chevrons.",
+      "JavaScript: Removed handleAiCommand. Created toggleSidebars function with state management. Updated window.onload for new button state and removed AI listener setup. Updated placeholder click listeners."
+    ]
+  },
+  {
+    "section_id": "refine_expanded_console_tools",
+    "user_request": "Keep Tools buttons (Terminal, Navigate, Learn, Resources) small like in the collapsed bar (horizontal row, not grid). Add more detailed indicators/placeholders under Stats, Project Info, Tools sections. Ensure Stats clearly show status indications.",
+    "implementation_summary": "Adjusted the layout of the 'Tools' section in the expanded view back to a horizontal row with smaller buttons similar to the collapsed bar. Added more example items/details within the 'Stats' and 'Project Info' sections. Ensured status indicators (colors, progress bar) in the 'Stats' section remained clear.",
+    "key_changes": [
+      "HTML: Added more example .stat-item divs in .stats-section. Restructured .project-info-section for vertical .info-row layout. Changed .tools-grid-section to .tools-row-section and child div to .tools-row.",
+      "CSS: Updated styles for .stat-item, .project-info-section, .info-row. Removed .tools-grid styles. Added .tools-row-section and .tools-row styles (horizontal flex). Styled .tools-row .tool-button to match .console-button appearance. Adjusted gaps/padding. Ensured status colors use CSS variables.",
+      "JavaScript: No major logic changes; ensured correct buttons trigger notifications. Updated FAB icon to chevrons."
+    ]
+  },
+  {
+    "section_id": "move_fabs_right",
+    "user_request": "Move the main console toggle FAB and the add/sidebar toggle buttons to the bottom-right hand side.",
+    "implementation_summary": "Updated CSS positioning rules for the main FAB (.minimize-btn) and the bottom controls (.console-bottom-controls) to align them to the right edge of the viewport/container. Adjusted the notification area position accordingly.",
+    "key_changes": [
+      "CSS (.minimize-btn): Changed 'left: 50%' and 'transform: translateX(-50%)' to 'right: var(--fab-margin)'. Removed 'translateX(-50%)' from hover transform.",
+      "CSS (.console-bottom-controls): Changed 'left: 20px' to 'right: calc(var(--fab-margin) + var(--fab-size) + 10px)'. Adjusted responsive rule.",
+      "CSS (#notificationArea): Changed 'right: 15px' to 'right: var(--fab-margin)'."
+    ]
+  },
+  {
+    "section_id": "make_stats_collapsible",
+    "user_request": "Make the 'Stats' panel in the expanded console collapsible.",
+    "implementation_summary": "Added a chevron icon next to the 'Stats' title and made the title clickable. Clicking toggles the visibility of the stat items below it using CSS max-height transition, and the chevron icon rotates. Added a JavaScript function to handle the toggle.",
+    "key_changes": [
+      "HTML: Added id='statsSection' to .stats-section. Added onclick='toggleSection(\"statsSection\")' and a chevron icon <i> element to the <strong> title. Wrapped stat items in a new div.collapsible-content.",
+      "CSS: Added styles for .section-toggle-icon (clickable, transition). Added styles for .collapsible-content (max-height, overflow). Added rules for .expanded-section.collapsed to set max-height: 0 on content and rotate icon.",
+      "JavaScript: Added new toggleSection(sectionId) function to toggle the 'collapsed' class."
+    ]
+  },
+  {
+    "section_id": "move_tools_below_stats",
+    "user_request": "Move the Tools buttons (Term, Nav, etc.) into a vertical column below the collapsible Stats section in the left column. Stats collapse should hide items but keep title visible above Tools.",
+    "implementation_summary": "Moved the HTML for the Tools section into the left column (.expanded-left-col) below the Stats section. Updated CSS to style the Tools buttons as a vertical list. Added independent scrolling (overflow-y: auto) to both left and right columns. Made section titles sticky within their columns. Updated JS toggle logic slightly.",
+    "key_changes": [
+      "HTML: Moved .tools-column-section div into .expanded-left-col. Updated class names. Added .collapsible class to .stats-section.",
+      "CSS: Changed .tools-row rules to .tools-column rules (flex-direction: column, width: 100%). Added 'overflow-y: auto' and scrollbar padding to columns. Made <strong> titles 'position: sticky'. Added cursor pointer only to collapsible section titles.",
+      "JavaScript: Modified toggleSection to check for .collapsible class. Added event.stopPropagation() to button click listeners inside titles."
+    ]
+  },
+  {
+    "section_id": "sidebar_toggle_modal",
+    "user_request": "Replace the single sidebar toggle button with a modal popup allowing independent control (L, R, B options) over left and right sidebars.",
+    "implementation_summary": "Changed the sidebar control button's action to open a modal window. Created HTML structure and CSS styles for the modal overlay and content box. Added 'L', 'R', 'B' buttons within the modal. Wrote JavaScript functions to show/hide the modal and handle toggling the visibility state and CSS classes of the left, right, or both sidebars based on modal button clicks.",
+    "key_changes": [
+      "HTML: Added #sidebarModal div structure (hidden initially). Changed sidebar control button's onclick to openSidebarModal(). Changed button icon to fa-columns.",
+      "CSS: Added styles for .modal-overlay, .modal-content, .modal-buttons, .modal-close-btn. Added .visible class for modal visibility toggle. Ensured sidebar .hidden transitions work.",
+      "JavaScript: Added sidebarModal variable. Added openSidebarModal(), closeSidebarModal() functions. Added handleSidebarToggle(target) function with logic for 'left', 'right', 'both', state variable updates, class toggling, and closing modal. Removed old toggleSidebars(). Updated initial load logic. Added overlay click listener to close modal."
+    ]
+  },
+  {
+    "section_id": "add_ask_nuc_component",
+    "user_request": "Add an 'Ask Nuc...' input bar component, centered, protruding slightly above the expanded console, completely hidden with folding animation when collapsed. Use current color scheme, fit aesthetically.",
+    "implementation_summary": "Added a new div (#askNucComponent) containing an input and button inside the .console-container. Positioned it absolutely relative to the console. Used CSS transitions on transform, opacity, and bottom properties, triggered by the .expanded class on the parent container, to create the sliding/folding animation and position it protruding above the expanded console. Adjusted z-index for proper layering and added padding-top to expanded content to prevent overlap. Added a placeholder JS click listener.",
+    "key_changes": [
+      "HTML: Added #askNucComponent div with input and button.",
+      "CSS: Set 'overflow: visible' on .console-container. Added styles for #askNucComponent (position: absolute, bottom, left, transform, initial hidden state, transitions). Added styles for .console-container.expanded #askNucComponent for the visible/protruding state. Adjusted z-index for multiple components. Added 'padding-top' to .console-expanded-content.",
+      "JavaScript: Added placeholder click listener for the send button inside #askNucComponent."
+    ]
+  },
+  {
+    "section_id": "add_git_status_section",
+    "user_request": "Add the Git status section (Commits, Pushes, Branches, Git Ratio) below the 'Project Info' section in the right-hand area of the expanded console. Style like the reference image.",
+    "implementation_summary": "Added a new HTML section (.git-status-section) within the right column (.expanded-right-area) of the expanded console view, placed after the project info section. Added CSS rules to style this new section and its contents (items, progress bar, etc.) to match the visual goal, using the existing color scheme.",
+    "key_changes": [
+      "HTML: Added a new div structure for the Git status section, likely containing elements for each metric (Commits, Pushes, Branches, Ratio).",
+      "CSS: Added new CSS rules to style the .git-status-section container and its internal elements (.status-item, progress bars, labels, values)."
+    ]
+  },
+  {
+    "section_id": "make_ask_nuc_draggable",
+    "user_request": "Make the 'Ask Nuc' prompt component draggable horizontally.",
+    "implementation_summary": "Added JavaScript event listeners (mousedown, mousemove, mouseup) to the #askNucComponent. Implemented logic to initiate drag only on the component's background (not input/button), calculate and update the element's inline 'left' style during mouse movement, and stop dragging on mouseup. Temporarily adjusted CSS during drag (e.g., disabling transform-based centering) and added logic to reset the component's position/transform when the console is toggled (expanded/collapsed) to ensure animations work correctly after dragging.",
+    "key_changes": [
+      "CSS: Added 'cursor: grab' to #askNucComponent. Added .dragging class styles (cursor: grabbing, transition: none). Added specific rule for .dragging state to maintain vertical transform while allowing inline 'left' style. Added 'user-select: none' to component, but re-enabled for input.",
+      "JavaScript: Created makeAskNucDraggable(el) function containing mousedown, mousemove, mouseup listeners with drag logic (offset calculation, boundary checks optional, inline style update). Modified mousedown to remove translateX part of transform during drag. Called makeAskNucDraggable in window.onload. Updated toggleConsole function to reset #askNucComponent's position/transform on state change."
+    ]
+  }
+]

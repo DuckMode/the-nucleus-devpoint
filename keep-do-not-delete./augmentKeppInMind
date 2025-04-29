@@ -1,0 +1,373 @@
+{
+  "title": "Foundational Technology Analysis",
+  "date": "April 2025",
+  "introduction": "Establishes baseline understanding of each core stack component, focusing on performance, maintainability, security, and integration for web & Electron apps.",
+  "technologies": [
+    {
+      "name": "Node.js",
+      "core_concepts": [
+        "Single-threaded event loop with non-blocking I/O",
+        "Handles many concurrent connections efficiently",
+        "Supports CommonJS and ECMAScript Modules"
+      ],
+      "installation": [
+        "Use nvm to manage versions",
+        "`npm init` or `yarn init` to scaffold projects"
+      ],
+      "usage_apis": [
+        "Core modules: http, fs, path",
+        "Async patterns: Promises + async/await"
+      ],
+      "performance": [
+        "Monitor event-loop lag",
+        "Use cluster module for multicore scaling",
+        "Profile with `--prof` or APM tools"
+      ],
+      "testing": [
+        "Jest or Mocha + Chai/Sinon for unit & integration"
+      ],
+      "best_practices": [
+        "Robust error handling",
+        "Run `npm audit` regularly",
+        "Stick to LTS releases"
+      ],
+      "version": "Node.js 22.x or 24.x LTS (V8 upgrades, Fetch API, built-in test runner, ESM improvements)"
+    },
+    {
+      "name": "React",
+      "core_concepts": [
+        "Declarative, component-based UI with JSX",
+        "Virtual DOM + reconciliation diffing",
+        "Hooks (useState, useEffect, etc.) for state & side-effects"
+      ],
+      "installation": [
+        "`npm create vite@latest` → select React template"
+      ],
+      "usage_apis": [
+        "Reusable components",
+        "React Router for routing",
+        "TanStack Query for server-state management"
+      ],
+      "performance": [
+        "React.memo, useCallback, useMemo",
+        "Code splitting with React.lazy & Suspense",
+        "Virtualized lists (react-window)"
+      ],
+      "testing": [
+        "React Testing Library + Jest"
+      ],
+      "best_practices": [
+        "Component composition over inheritance",
+        "Follow Rules of Hooks",
+        "Separate client vs server state"
+      ],
+      "version": "React 21 (concurrent rendering enhancements, new hooks, reconciliation optimizations)"
+    },
+    {
+      "name": "TypeScript",
+      "core_concepts": [
+        "Static typing superset of JavaScript",
+        "Interfaces, generics, type inference, utility types"
+      ],
+      "installation": [
+        "`npm install -D typescript`",
+        "Configure via tsconfig.json"
+      ],
+      "usage_apis": [
+        "Define types for vars, functions, TSX in React",
+        "Utility types to transform types"
+      ],
+      "performance": [
+        "Impacts compile-time; large projects/types slow builds",
+        "No runtime overhead"
+      ],
+      "testing": [
+        "Type checking in CI",
+        "Jest integration via ts-jest"
+      ],
+      "best_practices": [
+        "Enable strict mode",
+        "Prefer specific types over any",
+        "Use unknown over any"
+      ],
+      "version": "TypeScript 6.4 (enhanced inference, faster compiler, new ES features)"
+    },
+    {
+      "name": "Vite",
+      "core_concepts": [
+        "Dev server uses native ESM for on-demand code",
+        "Rollup for production bundling, esbuild for pre-bundling"
+      ],
+      "installation": [
+        "`npm create vite@latest`, edit vite.config.ts"
+      ],
+      "usage_apis": [
+        "`vite` (dev), `vite build` (prod)",
+        "Rich plugin ecosystem (Rollup plugins)"
+      ],
+      "performance": [
+        "Instant cold starts & HMR",
+        "Optimized builds via Rollup"
+      ],
+      "testing": [
+        "Vitest (Jest-compatible)"
+      ],
+      "best_practices": [
+        "Tune vite.config.ts",
+        "Understand dependency pre-bundling",
+        "Configure code splitting & asset handling"
+      ],
+      "version": "Vite 6.x or 7.x (Rollup/esbuild upgrades, plugin API improvements)"
+    },
+    {
+      "name": "PostgreSQL",
+      "core_concepts": [
+        "ACID-compliant, extensible relational DB",
+        "Advanced types: JSONB, PostGIS, full-text search"
+      ],
+      "installation": [
+        "Package manager, Docker, or Neon managed service"
+      ],
+      "usage_apis": [
+        "SQL DDL/DML/Queries",
+        "psql CLI or GUI tools"
+      ],
+      "performance": [
+        "Indexing strategies (B-tree, GIN, GiST)",
+        "EXPLAIN ANALYZE for query tuning",
+        "Connection pooling"
+      ],
+      "testing": [
+        "Dedicated test DBs + seeding + integration tests"
+      ],
+      "best_practices": [
+        "Normalize schemas",
+        "Index based on query patterns",
+        "Secure auth & permissions"
+      ],
+      "version": "PostgreSQL 17 or 18 (parallelism, planner enhancements, replication advances)"
+    },
+    {
+      "name": "Neon (PostgreSQL Serverless)",
+      "core_concepts": [
+        "Compute-storage separation, autoscaling to zero",
+        "DB branching & point-in-time recovery",
+        "Cold-start latencies"
+      ],
+      "installation": [
+        "`npm install @neondatabase/serverless`"
+      ],
+      "usage_apis": [
+        "Neon connection string in client config"
+      ],
+      "performance": [
+        "Mitigate cold starts with pooling or warmers"
+      ],
+      "testing": [
+        "Use Neon branches for isolated test copies"
+      ],
+      "best_practices": [
+        "Manage connections tightly",
+        "Plan for cold-start behavior"
+      ],
+      "version": "Latest @neondatabase/serverless"
+    },
+    {
+      "name": "Drizzle ORM",
+      "core_concepts": [
+        "Type-safe TS ORM with SQL-like query syntax",
+        "drizzle-kit for migrations"
+      ],
+      "installation": [
+        "`npm install drizzle-orm drizzle-kit`"
+      ],
+      "usage_apis": [
+        "Schema in schema.ts",
+        "db.select()/insert()/transaction()"
+      ],
+      "performance": [
+        "Minimal abstraction overhead"
+      ],
+      "testing": [
+        "drizzle-kit migrations + test DBs"
+      ],
+      "best_practices": [
+        "Keep schemas type-safe",
+        "Use efficient queries"
+      ],
+      "version": "Latest drizzle-orm & drizzle-kit"
+    },
+    {
+      "name": "Express",
+      "core_concepts": [
+        "Minimal Node.js web framework: routing + middleware"
+      ],
+      "installation": [
+        "`npm install express`"
+      ],
+      "usage_apis": [
+        "app.get()/post(), express.Router, middleware(req, res, next)"
+      ],
+      "performance": [
+        "Optimize middleware order & async patterns",
+        "Scale with cluster or pm2"
+      ],
+      "testing": [
+        "Supertest + Jest/Mocha"
+      ],
+      "best_practices": [
+        "Modular routers",
+        "Central error handler",
+        "Helmet, CORS"
+      ],
+      "version": "Express 5.x (Promise support, async error handling)"
+    },
+    {
+      "name": "Passport",
+      "core_concepts": [
+        "Modular authentication via strategies (JWT, OAuth, etc.)"
+      ],
+      "installation": [
+        "`npm install passport passport-jwt passport-local`"
+      ],
+      "usage_apis": [
+        "passport.use(), app.use(passport.initialize()), passport.authenticate()"
+      ],
+      "performance": [
+        "JWT stateless > session-based",
+        "Optimize deserialization DB lookups"
+      ],
+      "testing": [
+        "Mock strategies or simulate auth in integration tests"
+      ],
+      "best_practices": [
+        "Use bcrypt for passwords",
+        "Rate-limit login endpoints",
+        "CSRF protection if using sessions"
+      ],
+      "version": "Latest passport & strategy packages"
+    },
+    {
+      "name": "WebSockets (ws)",
+      "core_concepts": [
+        "Full-duplex TCP connection for real-time comms"
+      ],
+      "installation": [
+        "`npm install ws`"
+      ],
+      "usage_apis": [
+        "new WebSocketServer(), ws.send(), ws.on('message')"
+      ],
+      "performance": [
+        "Manage many connections (memory, fds)",
+        "Minimize payload size/serialization cost"
+      ],
+      "testing": [
+        "Mock ws clients/servers"
+      ],
+      "best_practices": [
+        "Use ping/pong heartbeats",
+        "Secure wss + auth tokens",
+        "Limit message size/rate"
+      ],
+      "version": "Latest ws library"
+    },
+    {
+      "name": "Radix UI",
+      "core_concepts": [
+        "Unstyled, accessible React primitives (ARIA, keyboard nav)"
+      ],
+      "installation": [
+        "`npm install @radix-ui/react-<component>`"
+      ],
+      "usage_apis": [
+        "Compose primitives, add custom styles"
+      ],
+      "performance": [
+        "Lightweight; focus on correct bundling"
+      ],
+      "testing": [
+        "Functional + accessibility tests"
+      ],
+      "best_practices": [
+        "Use clsx/tailwind-merge for class composition"
+      ],
+      "version": "Latest @radix-ui packages"
+    },
+    {
+      "name": "Tailwind CSS",
+      "core_concepts": [
+        "Utility-first CSS with JIT purging"
+      ],
+      "installation": [
+        "`npm install -D tailwindcss postcss autoprefixer`",
+        "Configure tailwind.config.js"
+      ],
+      "usage_apis": [
+        "Utility classes (bg-*, md:*, dark:*)"
+      ],
+      "performance": [
+        "JIT engine purges unused styles"
+      ],
+      "testing": [
+        "Visual regression + config validation"
+      ],
+      "best_practices": [
+        "Correct content paths for purging"
+      ],
+      "version": "Latest Tailwind CSS"
+    },
+    {
+      "name": "Electron",
+      "core_concepts": [
+        "Chromium + Node.js for cross-platform desktop",
+        "Main vs renderer processes with IPC"
+      ],
+      "installation": [
+        "`npm install electron electron-forge --save-dev`"
+      ],
+      "usage_apis": [
+        "BrowserWindow, ipcMain/ipcRenderer, preload scripts"
+      ],
+      "performance": [
+        "Minimize main process work",
+        "Lazy-load modules"
+      ],
+      "testing": [
+        "Playwright/WebDriverIO for E2E"
+      ],
+      "best_practices": [
+        "Enable contextIsolation, disable nodeIntegration",
+        "Use contextBridge + sanitize IPC"
+      ],
+      "version": "Latest Electron & Electron Forge"
+    },
+    {
+      "name": "Zod",
+      "core_concepts": [
+        "TypeScript-first schema validation + type inference"
+      ],
+      "installation": [
+        "`npm install zod`"
+      ],
+      "usage_apis": [
+        "z.object(), z.string(), schema.parse()/safeParse()"
+      ],
+      "performance": [
+        "Minimal overhead for most use cases"
+      ],
+      "testing": [
+        "Unit tests for valid/invalid cases"
+      ],
+      "best_practices": [
+        "Use safeParse for external data",
+        "Infer types with z.infer"
+      ],
+      "version": "Latest Zod"
+    }
+  ],
+  "cross_cutting_considerations": {
+    "interdependencies": "Tool versions must align (Vite⇆Rollup/esbuild, Electron⇆Node/Chromium, Drizzle⇆Neon). Always verify compatibility matrices and perform integration tests before upgrades.",
+    "performance": "Optimization must span frontend rendering, bundler speed, event-loop efficiency, query planning, serverless cold-starts, and desktop resource usage. Gains come from tuning interactions between layers."
+  }
+}
